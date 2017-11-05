@@ -1,0 +1,29 @@
+---
+layout: default
+title: Home
+---
+
+<section class="main">
+
+<article>
+	<h2>Task Timeline</h2>
+	<table>
+		<thead>
+			<td>Week</td>
+			<td>Task</td>
+		</thead>
+		</tr>
+
+		{% for task in site.data.timeline.timeline %}
+
+			<tr>
+				<td>{{task.title}}</td>
+				<td>{{task.content}}</td>
+			</tr>
+
+		{% endfor %}
+
+	</table>
+</section>
+
+</article>

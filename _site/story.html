@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+			<meta charset="utf-8" />
+			<title>Home</title>
+			<link rel="stylesheet" href="/style.css"/>			
+	</head>
+
+	<body>
+			<header>
+					<h1>Sam Medlock</h1>
+			</header>
+			<nav>
+					<h3>Project 2</h3>
+
+					<ul>
+						<li><i class="icon-home"></i><a href="/">Home</a></li>
+						<li><i class="icon-home"></i><a href="/timeline">Timeline</a></li>
+						<li><i class="icon-home"></i><a href="/story">Story</a></li>
+						<li><i class="icon-home"></i><a href="/project_1">Project 1</a></li>
+					</ul>
+			</nav>
+
+
+			<main>
+			<section class="main">
+  	<article>
+  	<h1>Intro</h1>
+	  	<p>
+			For project 2, I was continuing my work on the Gaze Toolbar, I was now the only one who knew how the program actually worked. So was mainly in charge of maintaining and implementing functionality and fixing bugs. Going into this, wasn’t totally confident in my ability to work out how to fix issues. The program is fairly complex and doesn’t have the best architecture.
+		</p>
+		<p>There were two big bugs left over from last semester</p>
+		<ul>
+			<li>
+				“The offset bug”
+				<ul>
+					<li>
+					This bug was an issue with where the action would happen relative to where you were actually looking. It could be anywhere from a few pixels off, to ¼ of the screen. This could render the software unusable.
+					</li>
+				</ul>
+			</li>
+			<li>
+				“The start menu bug”
+				<ul>
+					<li>
+					Most accessibility software stays above all other windows, just for ease of access purposes. The gaze toolbar did sit above all normal windows, but things like the start menu and taskbar could hide our magnification window. This was an issue as it was much harder to click items on the taskbar or start menu.
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<p>
+			My first main goal was to investigate and fix these. For the start menu bug, I had an idea where to start, last semester, Dan had attempted to fix this bug with no luck but he had given me some leads to go on. The offset bug I wasn’t too sure of, this functionality was hidden deep into the program.
+		</p>
+	</article>
+	<article>
+		<h1>My Work</h1>
+		<section>
+			<h4>The offset bug</h4>
+			<p>Since my first main priority was bug fixing, I decided to work on the offset bug as this was a deal-breaker for anyone trying to use the application.</p>
+			<p>During my debugging of this issue I found a few issues that prevented me fixing this right away. </p>
+
+			<ul>
+					<li>
+						When we changed the zoom window from the screenshot to the magnification, there was some leftover code that implemented a offset along the edges.
+					</li>
+					<li>
+						There was an issue with the “smoothing” that tried to smooth out your eye position inputs.
+					</li>
+					<li>
+						There was another bit of leftover code that divided your eye position by the zoom level of the old screenshot system.
+					</li>
+			</ul>
+
+			<p>
+				Unfortunately, it took me some time to identify these issues, then time to decouple these problems from the application. Combined with me personally not having a lot of time to work on the project outside of class time made this take many weeks. 
+			</p>
+
+			<p>
+				When I finally fixed it, I was relieved. I was getting burnt out working on the same issue for weeks. There was some things I would improve if I was to track down a similar issue in the future.
+			</p>
+			<ul>
+				<li>Work out exactly what the issue is before trying to fix it</li>
+				<li>Expect it to take a lot longer than what I’d originally thought it would.</li>
+			</ul>
+		</section>
+		<section>
+			<h4>The centered zoom window</h4>
+			<p>
+				While I was working on the offset bug, I found that it was hard to click along the edges on the screen.
+				This was due to a limitation of the eyetracker hardware, it was just generally inaccurate the further from the center your gaze got. 
+			</p>
+
+			<p>
+				To overcome this limitation, we decided on a centered zoom window. Up until this point, we had a dynamic window, where it would appear near to where you’ve gazed. 
+				The centered window only appeared on the center of the screen, then you moved your gaze to the center where it was more accurate to make your fine grained selection.
+			</p>
+			<p>
+				Every person has a different experience with the eye tracker, some found it fine to click on the edges, but personally I found it really hard. This centered zoom window change increased the usability of the application increased exponentially.
+			</p>
+			<p>
+				At this point we planned on having a toggle setting between the dynamic and centered zoom windows, but unfortunately we never had time to reimplement the dynamic window.
+			</p>
+		</section>
+		<section>
+			<h4>Smoothing & Crosshairs</h4>
+			<p>
+				Both the old screenshot and the magnified dynamic windows had a crosshair to help you select your target. I never reimplemented it back into the centered window. This was a fairly simple change to make, but I noticed that the crosshair was jumping around a lot. 
+			</p>
+			<p>
+				This was because back when we had the dynamic window, we also had extra smoothing on the player's gaze inputs. I removed this smoothing from the program when fixing the offset bug as the inputs from the hardware already implemented a smoothing algorithm. The problem now was the input wasn’t smooth enough for a visual representation to look smooth enough to not distract the user.
+			</p>
+			<p>
+				For this I implemented two types of smoothing, taking the average of the most recent 100 inputs and another that took a weighted average, where the most recent inputs were worth more towards the average than older inputs. The weighted average worked the best and now the crosshairs look as smooth as ever.
+			</p>
+		</section>
+		<section>
+			<h4>Rearrangeable Actionbar</h4>
+			<p>
+				This task was probably my favourite to work on and  probably the part I am happiest with.
+				This involved designing a UI that’s intuitive for someone to use with their eyes, refactoring the program to allow actions to be taken on and off at will and allowing the actions to be rearranged in any order.
+			</p>
+			<p>
+				The first thing I did for this was design the UI. I’m happy with how it turned out and think it’s very functional. I then refactored the program to allow the rest of the functionality required.
+			</p>
+			<p>
+				In my opinion, this was a large help towards making the application user-friendly as the end use can now customize their layout to their will.
+			</p>
+			<p>
+				While this task didn’t take very long, it stood out to me as one of my biggest contributions and the rest of my tasks were smaller in scale or backend changes and fixes.
+			</p>
+		</section>
+		<section>
+			<h4>The start menu bug</h4>
+			<p>Going into this task, I thought it was going to be a lot simpler than it turned out to be.</p>
+			<p>To get a window above the start menu a few requirements need to be met</p>
+			<ul>
+				<li>The application must be signed with a trusted certificate</li>
+				<li>The application must be installed in a trusted location (Program files)</li>
+				<li>The application must set uiAccess=True in the manifest file</li>
+			</ul>
+
+			<p>This sounds very simple. I thought it was only going to take a few days. It ended up being the hardest bug to fix and the bug that stayed around the longest.</p>
+			<p>I decided to put this task off until nearer the end of the project, it didn’t affect the overall usability of the program and we had more important features and issues to attend to. I think this was a good idea, as it could have slowed progress in the long run.</p>
+			<p>In the end, the solution was a combination of several things - Using another type of installer, Making sure the user is an admin, installing the certificate is in the correct place and making sure the manifest file was correct.</p>
+			<p>This issue drained me, it wasn’t fun to fix or debug it was simply trial and error of various methods I didn’t fully understand. </p>
+			<p>I think if I researched exactly what to do, found out exactly what was happening with our original installer (installing in the wrong place) and searched the right issues, this could have been fixed faster. Personally, I think it just came down to perseverance and trying different things over and over until it was correct.</p>
+		</section>
+		<sectiom>
+			<h4>Other Things</h4>
+			<p>Last semester I talked about gaining confidence when working with a group. This semester I’d say that that confidence had grown, in the beginning I was the only one who knew how the application worked, so I took a pseudo-leadership role in getting everyone up to speed and teaching them how to alter the code to complete their tasks. I was often the one to talk up in meetings to suggest changes and new features, but also knew when to not say anything and let others have their say and criticize things that I was working on.</p>
+			<p>I’d say the level of work I put into the project overall was a fair amount, in the beginning I was probably working slower than I should be. Soon though, I was able to spend the correct amount of time working on the project I was knocking out all my assigned tasks within the weeks. I’d also say that the rest of the team pulled their weight, we all agreed on the tasks at the start of every week and I think overall we were all balanced in the amount of work we had to do.</p>
+			<p>In the beginning, we were meeting one day a week (Monday). I think this often made us wait until the weekend to begin working on our tasks and then if we ran into any trouble, we’d have no progress for that week. In the final half of the semester, we started having two meetings a week (Monday, Thursday). If we originally had these two meetings, I think we would have avoided any issues regarding progression and would be able to complete tasks faster than we were originally. </p>
+		</sectiom>
+	</article>
+	<article>
+		<h1>Conclusion</h1>
+		<p>Overall, I feel this was a good experience. I’ve learned a lot about time management and problem solving as well as improving my ability to work on software projects with a team, a thing I had hardly done before the beginning of project 1.</p>
+		<p>Like anything, it had its ups and downs with boring bits that take too long and parts that were really fun to work on and in the end we’ve made an application that could actually be used to help someone.</p>
+	</article>
+</section>
+			</main>
+
+			<footer>
+					<p>Sam Medlock, Portfolio, Project 2</p>
+			</footer>
+	</body>
+
+</html>

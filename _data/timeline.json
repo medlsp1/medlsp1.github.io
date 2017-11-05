@@ -1,0 +1,44 @@
+{
+	"timeline": [
+		{
+			"title": "Weeks 1 - 5",
+			"content": "Offset bug, centered zoom window"
+		},
+		{
+			"title": "Week 6",
+			"content": "Smoothing"
+		},
+		{
+			"title": "Week 7",
+			"content": "Add crosshair to centered zoom window"
+		},
+		{
+			"title": "Week 8",
+			"content": "New smoothing algorithmns"
+		},
+		{
+			"title": "Week 9",
+			"content": "Zoom settings, rearrangable sidebar"
+		},
+		{
+			"title": "Week 10",
+			"content": "Sidebar now fits on all resolutions, zoom settings"
+		},
+		{
+			"title": "Week 11",
+			"content": "Can no longer open two instances at once, allow the user to select a higher fixation time"
+		},
+		{
+			"title": "Week 12",
+			"content": "Actions can be deactivated, sticky left click functionality, increase the max zoom, fix a crash when installing"
+		},
+		{
+			"title": "Week 13",
+			"content": "Fix window appearing in the incorrect position with some monitor configurations, crosshair now draws at the bottom of the screen"
+		},
+		{
+			"title": "Week 14",
+			"content": "Installer work"
+		}
+	]
+}

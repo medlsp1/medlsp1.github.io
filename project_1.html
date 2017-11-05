@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sam Medlock Project 1 Portfolio</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      article
+      {
+        padding-top: 10%;
+      }
+
+      h1
+      {
+        /*Adjusts anchor point for fixed header*/
+        padding-top: 50px;
+        margin-top: -50px;
+      }
+    </style>
+  </head>
+  <body>
+	<nav class="navbar navbar-fixed-top navbar-default">
+  	<div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Sam Medlock Portfolio</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#story">My Story</a></li>
+            <li><a href="#beginning">The Beginning</a></li>
+            <li><a href="#otherscode">Old Code</a></li>
+            <li><a href="#t1">Task 1</a></li>
+            <li><a href="#t2">Task 2</a></li>
+            <li><a href="#t3">Task 3</a></li>
+            <li><a href="#t4">Task 4</a></li>
+            <li><a href="#team">Teamwork</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+    <article id="story">
+      <section id="beginning">
+        <h1>The Beginning</h1>
+        <p>
+In the beginning, I wasn’t 100% sure what I was getting into when starting with the assisted technology group. I decided to work with the “gaze-control” application, that had already been developed in previous years. It had a large amount of functionality and wasn’t entirely sure what else needed to be done with it. This worried me as I would be working with a large amount of code written by other people over a long period of time. 
+        </p>
+      </section>
+      <section id="otherscode">
+      <h1>Working with other’s code</h1>
+        <p>
+The gaze control application has a lot of code and it’s all written by many different people. Overall, the code quality was clean and it was fairly readable. The comments were lacking and there was some questionable snippets that I found a bit strange. 
+        </p>
+        <p>
+It took around two weeks for me to start to get my head around the whole thing. The application had a state manager that controlled the entire program, a fixation detector that understood where the user was looking and for how long and a virtual mouse that fires windows events to emulate a mouse or keyboard just to name a few of the systems. It was large and complex, but I was starting to understand how I would change and add to the program.
+        </p>
+      </section>
+
+      <section id="jobs">
+        <h1>My Jobs</h1>
+        <ul>
+            <li>Research testing solutions</li>
+            <li>Implement some form of unit testing</li>
+            <li>Refactor large amounts to allow better testing and modularity</li>
+            <li>Work on replacing the sidebar/control bar with a control that would work with all eye-trackers. (This would later change)</li>
+
+        </ul>
+      </section>
+
+      <section id="t1">
+      <h1>
+      Task 1: Research Testing
+      </h1>
+      <p>
+      Researching testing solutions was fairly easy, the gaze control is written in C#. This gave us access to Microsoft’s <a href="https://msdn.microsoft.com/en-us/library/hh598960.aspx">"MSUnit”</a>. Which allows for an easy way to write unit tests for the program. 
+      </p>
+      <p>
+      I did look at other options for C# unit testing such as <a href="https://www.nunit.org/">NUnit</a> or <a href="https://xunit.github.io/">xUnit.NET</a> but I decided against depending on a 3rd party dependency and thought that sticking to MSUnit was the best choice.
+      </p>
+      <p>
+      I also looked at solutions for automated testing such as <a href="https://travis-ci.org/">Travis</a> or <a href="http://codeship.com/">CodeShip</a>. I decided these were overkill (for now) as in the grand scheme, our program was fairly small with less changes being made than the programs that those target and it should not be much of a priority.
+      </p>
+      </section>
+
+      <section id="t2">
+        <h1>Task 2: Unit Testing</h1>
+        <p>
+Implementing the testing was more difficult than I thought it would have been. Not because the tests were hard to write, but because I was struggling to find things to actually test. The program actually do very little computation itself, instead it usually asks some built in C# method to solve a problem or run an algorithm. I wrote tests for some basic helper methods such as checking if the gaze is offscreen or checking the virtual mouse was putting the cursor in the correct position.
+        </p>
+
+        <p>
+        A couple of snippets from the unit tests:
+        </p>
+        <pre>
+        <code>
+        [TestMethod]
+        public void VirtualMouse_SetCursorPos_Correct()
+        {
+            VirtualMouse.SetCursorPos(100, 100);
+ 
+            Point currentMousePos = System.Windows.Forms.Cursor.Position;
+            Point intendedPos = new Point(100, 100);
+ 
+            Assert.AreEqual(currentMousePos, intendedPos);
+        }
+ 
+        [TestMethod]
+        public void GazeUtilities_IsGazeOffScreen_True()
+        {
+            bool result = GazeUtilities.IsGazeOffScreen(200000, 20);
+            bool expected = true;
+ 
+            Assert.AreEqual(result, expected);
+        }
+        </code>
+        </pre>
+
+        <p>
+Because of the nature of the code being hard to test, my next task was important for allowing me to test more things - refactoring code.
+        </p>
+      </section>
+      <section id="t3">
+        <h1>Task 3: Refactoring</h1>
+        <p>
+The StateManager class was functional and readable, but it wasn’t modular and was difficult to extend.
+        </p>
+A state manager is split into two parts 
+<ul>
+<li>A part that changes what state the program is currently in</li>
+<li> part that does the action of that state</li>
+</ul>
+        <p>
+The way both of these methods was set up had way too much logic, making it harder to read and change. I changed this, removing the logic from inside each case, and moving them to a method. 
+        </p>
+        <p>
+This changed it from being something like:
+        </p>
+      <pre>
+      <code>
+      if(<var>state</var> == Waiting)
+      {
+        foreach(var <var>i</var> in x)
+        {
+          setScreenSize(100, 100);
+          <var>X</var>++;
+          state = active
+        }
+      }
+      </code>
+      </pre>
+      <p>
+      To something more like this:
+      </p>
+      <pre>
+      <code>
+      if(<var>state</var> == waiting)
+      {
+        enterActiveState();
+      }
+      </code>
+      </pre>
+    <p>
+This vastly reduced the amount of code as well as removing code duplication methods, making them both readable and modular. Now I could test a few more things such as testing state changes.
+    </p>
+    </section>
+
+    <section id="t4">
+      <h1>Task 4: The Magnifier</h1>
+      <p>
+Originally, my task was to help implement a new sidebar control that would allow more than one type of eye-tracker to work with the program. Before I could start on this, my task was changed to help implement a new type of magnifier for when you are selecting an object.
+We needed a new way of doing this, as the current way of doing it (taking a screenshot) was slow and didn’t update in realtime.
+      </p>
+      <p>
+      We decided to use a magnifier, like the inbuilt Window’s magnifier. The only problem with this was that the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms692402(v=vs.85).aspx">magnification API</a> is only avalible for C++ and not C#. Fortunately, we found a <a href="https://perevoznyk.wordpress.com/2010/09/06/windows-magnification-api-net/">C# wrapper</a> made by  Serhiy Perevoznyk. This wrapper fit our needs but was a bit of a mess. The code example that came with the wrapper was very helpful, but it had it’s limitations. It didn’t support zooming in over time, it was badly written and didn’t have any useful comments. 
+I decided I needed to rewrite it in my own style, improving the commenting and making it compatible for our needs. 
+      </p>
+
+      <p>
+Thankfully, C++ methods can be easily imported to C#, so the wrapper was essentially importing these methods and using them to create the magnifier. So armed with the online documentation for the magnification API, I mostly worked out how the magnification worked and was able to write my own implementation of the example magnifier. My new magnifier slotted right into our existing project and allowed us to do a lot more with it in the future (zooming in).
+      </p>
+
+      <p>
+This new magnifier is probably the thing I am most proud of so far in the project. I took something that, in my opinion, was poorly made and turned that into something useful that could easily fit into the current implementation of the program with no issues. It’s not perfect but it can be worked on and improved over time. The code for <a href="https://github.com/accessibilitysoftwarehub/OpenSourceWindowsGazeControl/blob/windowsMagnificationAPI/GazeToolBar/ZoomMagnifier.cs">the magnifier can be found here</a>
+      </p>
+
+      <p>
+One of the issues I had with this new magnifier didn’t come without it’s share of troubles. While it is zooming in, it would violently shake. I noticed that this happened the further the area it was drawing was away from the origin point (0, 0). I tried for quite some time to fix this, but in the end I concluded that this was not a bug with my code, but either an issue with the wrapper we were using for the magnification API itself. Thankfully the zooming in is not required for the application to be functional.
+      </p>
+    </section>
+
+    <section id="team">
+     <h1>Working With a Team</h1> 
+     <p>
+I’m usually apprehensive about working with a team, I have my own way of doing things and changing them to do them someone else’s way is always hard. I think that is why I originally chose to do the testing portion of the project. That way I was working on 100% my own code by myself. I do regret doing this though, as the testing didn’t really turn out at the quality I wanted. 
+     </p>
+     <p>
+My other big takeaway from this is the fact that I was able to understand and comfortable work with an already established codebase. This gives me confidence for the future when working in the industry, I will be able to pick up a project mid way through and be able to contribute in a fairly short amount of time.
+     </p>
+
+     <p>
+Overall it was a good team experience, I was only working with two other people working on the Gaze control and I think we all pulled our weight. We all mostly made it to meetings and let each other know if we couldn’t for some reason. I helped a lot with problems that others were facing (Drawing a crosshair under the magnification window). 
+     </p>
+    </section>
+    </article>
+
+    </div>
+
+    <div class="panel panel-default">
+      Sam Medlock Portfolio, Project 1, 2017
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
