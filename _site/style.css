@@ -160,3 +160,13 @@ table {
     border-collapse: collapse;
     width: 100%;
 }
+
+.img-proof-scale
+{
+    width: 100px;
+    height: auto;
+}
+
+.proof-div
+    border-top: 2px solid #333333;
+}

@@ -4,7 +4,7 @@
 <html>
 	<head>
 			<meta charset="utf-8" />
-			<title>Home</title>
+			<title>Story</title>
 			<link rel="stylesheet" href="/style.css"/>			
 	</head>
 
@@ -19,6 +19,9 @@
 						<li><i class="icon-home"></i><a href="/">Home</a></li>
 						<li><i class="icon-home"></i><a href="/timeline">Timeline</a></li>
 						<li><i class="icon-home"></i><a href="/story">Story</a></li>
+						<li><i class="icon-home"></i><a href="/review">Self-review</a></li>
+						<li>&nbsp;</li>
+						<li>&nbsp;</li>
 						<li><i class="icon-home"></i><a href="/project_1">Project 1</a></li>
 					</ul>
 			</nav>
@@ -113,14 +116,14 @@
 				This was because back when we had the dynamic window, we also had extra smoothing on the player's gaze inputs. I removed this smoothing from the program when fixing the offset bug as the inputs from the hardware already implemented a smoothing algorithm. The problem now was the input wasn’t smooth enough for a visual representation to look smooth enough to not distract the user.
 			</p>
 			<p>
-				For this I implemented two types of smoothing, taking the average of the most recent 100 inputs and another that took a weighted average, where the most recent inputs were worth more towards the average than older inputs. The weighted average worked the best and now the crosshairs look as smooth as ever.
+				For this I implemented two types of smoothing, taking <a href="https://github.com/accessibilitysoftwarehub/OpenSourceWindowsGazeControl/blob/master/GazeToolBar/FixationSmootherAverage.cs">the average of the most recent 100 inputs</a> and <a href="https://github.com/accessibilitysoftwarehub/OpenSourceWindowsGazeControl/blob/master/GazeToolBar/FixationSmootherExponential.cs">another that took a weighted average</a>, where the most recent inputs were worth more towards the average than older inputs. The weighted average worked the best and now the crosshairs look as smooth as ever.
 			</p>
 		</section>
 		<section>
 			<h4>Rearrangeable Actionbar</h4>
 			<p>
 				This task was probably my favourite to work on and  probably the part I am happiest with.
-				This involved designing a UI that’s intuitive for someone to use with their eyes, refactoring the program to allow actions to be taken on and off at will and allowing the actions to be rearranged in any order.
+				<a href="/rearrange_layout.png">This involved designing a UI that’s intuitive for someone to use with their eyes</a>, refactoring the program to allow actions to be taken on and off at will and allowing the actions to be rearranged in any order.
 			</p>
 			<p>
 				The first thing I did for this was design the UI. I’m happy with how it turned out and think it’s very functional. I then refactored the program to allow the rest of the functionality required.
@@ -135,7 +138,7 @@
 		<section>
 			<h4>The start menu bug</h4>
 			<p>Going into this task, I thought it was going to be a lot simpler than it turned out to be.</p>
-			<p>To get a window above the start menu a few requirements need to be met</p>
+			<p><a href=https://github.com/OptiKey/OptiKey/blob/master/docs/UiAccess.txt>To get a window above the start menu a few requirements need to be met</a></p>
 			<ul>
 				<li>The application must be signed with a trusted certificate</li>
 				<li>The application must be installed in a trusted location (Program files)</li>
