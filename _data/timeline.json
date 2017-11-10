@@ -2,23 +2,23 @@
 	"timeline": [
 		{
 			"title": "Weeks 1 - 5",
-			"content": "Offset bug, centered zoom window"
+			"content": "Offset bug, centered zoom window, refactoring"
 		},
 		{
 			"title": "Week 6",
-			"content": "Smoothing"
-		},
-		{
-			"title": "Week 7",
 			"content": "Add crosshair to centered zoom window"
 		},
 		{
+			"title": "Week 7",
+			"content": "Refactored the smoothing algorithmn"
+		},
+		{
 			"title": "Week 8",
-			"content": "New smoothing algorithmns"
+			"content": "Refactoring"
 		},
 		{
 			"title": "Week 9",
-			"content": "Zoom settings, rearrangable sidebar"
+			"content": "Improved settings panel, rearrangable sidebar"
 		},
 		{
 			"title": "Week 10",
@@ -34,11 +34,11 @@
 		},
 		{
 			"title": "Week 13",
-			"content": "Fix window appearing in the incorrect position with some monitor configurations, crosshair now draws at the bottom of the screen"
+			"content": "Fix window appearing in the incorrect position with some monitor configurations, crosshair now draws at the bottom of the screen, magnified window now appears over start menu"
 		},
 		{
 			"title": "Week 14",
-			"content": "Installer work"
+			"content": "Installer work, bug fixes"
 		}
 	]
 }
